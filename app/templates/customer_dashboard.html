@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/customer_dashboard.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Optional: Bootstrap for progress bar styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script>
+        function updateOrderStatus() {
+            fetch("{{ url_for('main.current_order_status') }}")
+                .then(response => response.json())
+                .then(data => {
+                    if (!data || data.status === null) {
+                        document.querySelector(".box-1").innerHTML = "<p>No Order Created</p>";
+                        return;
+                    }
+
+                    const progressBar = document.querySelector(".progress-bar");
+                    progressBar.style.width = data.progress + "%";
+                    progressBar.innerText = data.progress + "%";
+
+                    const orderDetails = `
+                        <ul>
+                            <li><strong>Order ID:</strong> ${data.order_id}</li>
+                            <li><strong>Item ID:</strong> ${data.item_id}</li>
+                            <li><strong>Item Name:</strong> ${data.item_name}</li>
+                            <li><strong>Amount:</strong> ${data.amount}</li>
+                            <li><strong>Status:</strong> ${data.status}</li>
+                            <li><strong>Last Update:</strong> ${data.last_update}</li>
+                        </ul>
+                    `;
+                    document.querySelector(".box-1 ul").innerHTML = orderDetails;
+                });
+        }
+
+        setInterval(updateOrderStatus, 10000);  // every 10 seconds
+    </script>
+
+    <script>
+        // Pass variables from Flask to JS
+        window.currency = "{{ currency }}";
+        window.monthlyData = {{ monthly_data | default([]) | tojson | safe }};
+
+    </script>
+    <script src="{{ url_for('static', filename='assets/js/customer_dashboard_chart.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-left">
+            <img src="{{ url_for('static', filename='assets/img/logo_cms.png') }}" alt="CMS Icon">
+            <h1>Customer Dashboard</h1>
+        </div>
+        <div class="top-right">
+            <a href="{{ url_for('main.dashboard') }}" class="back-button">
+                <span class="material-icons">home</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- User Info -->
+    <div class="welcome-section">
+        <div class="welcome-box">
+            <div class="profile-pic">
+                <img src="{{ url_for('static', filename='assets/img/user_placeholder.png') }}" alt="User Photo">
+            </div>
+            <div class="welcome-text">
+                <h2>Welcome back, {{ session['usr_full_nm'] }} 👋</h2>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Content Boxes -->
+    <div class="content">
+
+        <!-- Next Payment Box -->
+        <div class="box-4">
+            <h3>Next Payment Bills</h3>
+            <div class="next-payment">
+                <p><strong>Due Month:</strong> {{ next_month }}</p>
+                <p><strong>Amount Due:</strong> {{ currency }} {{ next_payment or 0 }}</p>
+                <p class="note"><em>This is an estimated bill for the upcoming month.</em></p>
+            </div>
+        </div>
+
+        <!-- Left Box -->
+        <div class="box-1">
+            <h3>Current Order</h3>
+            {% if current_order %}
+                <div class="progress-container">
+                    <div class="progress">
+                        <div class="progress-bar bg-success" 
+                             role="progressbar" 
+                             style="width: {{ progress_percent }}%;" 
+                             aria-valuenow="{{ progress_percent }}" 
+                             aria-valuemin="0" 
+                             aria-valuemax="100">
+                            {{ progress_percent }}%
+                        </div>
+                    </div>
+                </div>
+                <ul>
+                    <li><strong>Order ID:</strong> {{ current_order.cust_order_id }}</li>
+                    <li><strong>Item ID:</strong> {{ current_order.order_item_id }}</li>
+                    <li><strong>Item Name:</strong> {{ current_order.order_item_nm }}</li>
+                    <li><strong>Amount:</strong> {{ current_order.order_amount }}</li>
+                    <li><strong>Status:</strong> {{ current_order.last_status }}</li>
+                    <li><strong>Last Update:</strong> {{ current_order.last_update }}</li>
+                </ul>
+            {% else %}
+                <p>No Order Created</p>
+            {% endif %}
+        </div>
+
+        <!-- Right Box -->
+        <div class="box-2">
+            <h3>Total Spent this Month</h3>
+            <div class="payment-summary">
+                <div class="payment-amount">
+                    <h2>{{ current_month }} Total</h2>
+                    <p class="amount">
+                        {{ currency }} {{ monthly_payment or 0 }}
+                    </p>
+                </div>
+                <div class="note">
+                    <p>Summary of all payments received this month.</p>
+                    <p><em>(No actual data source linked yet)</em></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart Box -->
+        <div class="box-3">
+            <h3>Transaction Summary (This Month)</h3>
+            <div class="chart-wrapper">
+                <canvas id="monthlyTransactionChart"></canvas>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+</body>
+</html>

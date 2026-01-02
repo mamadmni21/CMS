@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Finance & Accounting Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/finance_accounting_dashboard.css') }}">
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+    <div class="top-left">
+        <img src="{{ url_for('static', filename='assets/img/logo_cms.png') }}" alt="CMS Icon">
+        <h1>Finance & Accounting Dashboard</h1>
+    </div>
+    <div class="top-right">
+        <a href="{{ url_for('main.dashboard') }}" class="back-button">
+            <span class="material-icons">home</span>
+        </a>
+    </div>
+</div>
+
+<!-- Welcome Section -->
+<div class="welcome-section">
+    <div class="welcome-box">
+        <div class="profile-pic">
+            <img src="{{ url_for('static', filename='assets/img/user_placeholder.png') }}" alt="User Photo">
+        </div>
+        <div class="welcome-text">
+            <h2>Welcome, {{ usr_full_nm or 'Finance User' }} 💼</h2>
+            <p class="subtitle"> Finance & Accounting Monitoring Area</p>
+        </div>
+    </div>
+</div>
+
+<!-- Dashboard Cards -->
+<div class="content-container">
+  <div class="section-box">
+    <h2>Finance & Accounting Overview</h2>
+    <div class="menu-grid">
+
+      <div class="menu-card">
+        <span class="material-icons icon">payments</span>
+        <div class="menu-title">Total Revenue ({{ current_year }})</div>
+        <div class="menu-number">{{ total_revenue }}</div>
+      </div>
+
+      <div class="menu-card">
+        <span class="material-icons icon">account_balance_wallet</span>
+        <div class="menu-title">Total Expenses ({{ current_year }})</div>
+        <div class="menu-number">{{ total_expenses }}</div>
+      </div>
+
+      <div class="menu-card">
+        <span class="material-icons icon">receipt_long</span>
+        <div class="menu-title">Outstanding Invoices</div>
+        <div class="menu-number">{{ outstanding_invoices }}</div>
+      </div>
+
+      <div class="menu-card">
+        <span class="material-icons icon">check_circle</span>
+        <div class="menu-title">Paid Invoices</div>
+        <div class="menu-number">{{ paid_invoices }}</div>
+      </div>
+
+      <div class="menu-card">
+        <span class="material-icons icon">cancel</span>
+        <div class="menu-title">Overdue Invoices</div>
+        <div class="menu-number">{{ overdue_invoices }}</div>
+      </div>
+
+      <div class="menu-card">
+        <span class="material-icons icon">bar_chart</span>
+        <div class="menu-title">Monthly Profit ({{ current_month }})</div>
+        <div class="menu-number">{{ monthly_profit }}</div>
+      </div>
+
+      <div class="menu-card">
+        <span class="material-icons icon">savings</span>
+        <div class="menu-title">Cash Reserves</div>
+        <div class="menu-number">{{ cash_reserves }}</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

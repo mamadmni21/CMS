@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Wallet</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/customer_wallet.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-left">
+            <img src="{{ url_for('static', filename='assets/img/logo_cms.png') }}" alt="CMS Icon">
+            <h1>Customer Wallet</h1>
+        </div>
+        <div class="top-right">
+            <a href="{{ url_for('main.dashboard') }}" class="back-button">
+                <span class="material-icons">home</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Welcome Box -->
+    <div class="welcome-section">
+        <div class="welcome-box">
+            <div class="profile-pic">
+                <img src="{{ url_for('static', filename='assets/img/user_placeholder.png') }}" alt="User Photo">
+            </div>
+            <div class="welcome-text">
+                <h2>Welcome back, {{ usr_full_nm }} 👋</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
+
+        <!-- Box 1: Next Payment -->
+        <div class="box-1">
+            <h3>Next Payment Bills</h3>
+            <div class="next-payment">
+                <p><strong>Due Month:</strong> {{ next_month }}</p>
+                <p><strong>Amount Due:</strong> {{ currency }} {{ next_payment or 0 }}</p>
+                <p class="note"><em>This is an estimated bill for the upcoming month.</em></p>
+            </div>
+        </div>
+
+        <!-- Box 2: Current Balance -->
+        <div class="box-2">
+            <h3>Current Wallet Balance</h3>
+            <div class="wallet-balance">
+                <p><strong>Currency:</strong> {{ currency }}</p>
+                <p><strong>Available Balance:</strong> {{ currency }} {{ saving_blc or "0.00" }}</p>
+                <p class="note"><em>Keep your balance topped up to avoid service interruptions.</em></p>
+            </div>
+        </div>
+
+        <!-- Box 3: Transaction Logs -->
+        <div class="box-3">
+            <h3>Recent Transactions</h3>
+            <ul class="list-group">
+                {% for txn in transaction_logs %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>
+                        <span class="material-icons text-success">receipt_long</span>
+                        {{ txn.project }}
+                    </span>
+                    <span>
+                        <strong>{{ currency }} {{ txn.amount }}</strong> <br>
+                        <small class="text-muted">{{ txn.date }}</small>
+                    </span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Box 4: Top-Up Button -->
+        <div class="box-4">
+            <a href="{{ url_for('main.customer_topup') }}" class="btn btn-primary">
+                <span class="material-icons me-1">add_circle</span> Top‑up Wallet
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>

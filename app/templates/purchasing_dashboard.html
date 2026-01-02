@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Purchasing Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/purchasing_dashboard.css') }}">
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+    <div class="top-left">
+        <img src="{{ url_for('static', filename='assets/img/logo_cms.png') }}" alt="CMS Icon">
+        <h1>Purchasing Dashboard</h1>
+    </div>
+    <div class="top-right">
+        <a href="{{ url_for('main.dashboard') }}" class="back-button">
+            <span class="material-icons">home</span>
+        </a>
+    </div>
+</div>
+
+<!-- Welcome Section -->
+<div class="welcome-section">
+    <div class="welcome-box">
+        <div class="profile-pic">
+            <img src="{{ url_for('static', filename='assets/img/user_placeholder.png') }}" alt="User Photo">
+        </div>
+        <div class="welcome-text">
+            <h2>Welcome, {{ usr_full_nm or 'Purchasing User' }} 👋</h2>
+            <p class="subtitle"> Purchasing Monitoring Area</p>
+        </div>
+    </div>
+</div>
+
+<!-- Dashboard Cards -->
+<div class="content-container">
+  <div class="section-box">
+    <h2>Purchasing Dashboard Overview</h2>
+    <div class="menu-grid">
+
+      <div class="menu-card">
+        <span class="material-icons icon">inventory</span>
+        <div class="menu-title">On Going Purchase Orders</div>
+        <div class="menu-number">{{ on_going_po }}</div>
+      </div>
+
+      <div class="menu-card">
+        <span class="material-icons icon">assignment</span>
+        <div class="menu-title">Total PO Requests</div>
+        <div class="menu-number">{{ total_po_requests }}</div>
+      </div>
+
+      <div class="menu-card">
+        <span class="material-icons icon">receipt_long</span>
+        <div class="menu-title">Incoming Bills</div>
+        <div class="menu-number">{{ incoming_bills }} ({{ current_month }})</div>
+      </div>
+
+      <div class="menu-card">
+        <span class="material-icons icon">history</span>
+        <div class="menu-title">Previous Bill Payments</div>
+        <div class="menu-number">
+            {% for bill in previous_bills %}
+              {{ bill.month }} ({{ bill.date }})<br>
+            {% endfor %}
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <span class="material-icons icon">cancel</span>
+        <div class="menu-title">Declined PO Requests</div>
+        <div class="menu-number">{{ declined_po }}</div>
+      </div>
+
+      <div class="menu-card">
+        <span class="material-icons icon">local_shipping</span>
+        <div class="menu-title">Total Suppliers</div>
+        <div class="menu-number">{{ total_suppliers }}</div>
+      </div>
+
+      <div class="menu-card">
+        <span class="material-icons icon">payments</span>
+        <div class="menu-title">Total Unpaid Bills (MYR)</div>
+        <div class="menu-number">{{ total_unpaid_bills }}</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

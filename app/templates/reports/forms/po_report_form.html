@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
+
+<div class="form-section">
+    <h3>📑 Purchase Order Report</h3>
+
+    <label for="purchase_ids">Select Purchase IDs</label>
+    <select id="purchase_ids" name="purchase_ids" multiple class="form-control">
+        {% for pid in purchase_ids %}
+        <option value="{{ pid[0] }}">{{ pid[0] }}</option>
+        {% endfor %}
+    </select>
+    <small class="form-text text-muted">Hold CTRL (Windows) or CMD (Mac) to select multiple IDs.</small>
+</div>
+
+<hr>
+
+<table id="po-data-table" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Unit</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in pur_req_data %}
+        <tr>
+            <td>{{ row.pur_req_id }}</td>
+            <td>{{ row.pur_req_usr_name }}</td>
+            <td>{{ row.pur_req_itm_name }}</td>
+            <td>{{ row.pur_req_itm_qty }}</td>
+            <td>{{ row.pur_req_itm_unit }}</td>
+            <td>{{ row.pur_req_sts }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div>
+    <label for="report_notes">Notes</label>
+    <textarea id="report_notes" name="report_notes" class="form-control"></textarea>
+</div>
+
+<div class="form-footer">
+    <button type="submit" class="btn btn-primary">Generate Report</button>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var poTable = $('#po-data-table').DataTable({
+            responsive: true,
+            autoWidth: false,   // 🔥 prevents table from shrinking too much
+            pageLength: 5
+        });
+
+        // Optional: resize DataTable when window resizes
+        $(window).on('resize', function () {
+            poTable.columns.adjust().responsive.recalc();
+        });
+    });
+
+</script>

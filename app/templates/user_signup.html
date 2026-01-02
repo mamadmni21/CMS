@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Signup - CMS</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/img/logo_cms.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/signup.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="signup-container">
+    <div class="signup-header">
+        <img src="{{ url_for('static', filename='assets/img/logo_cms.png') }}" alt="CMS Logo" class="signup-logo">
+        <h2>User Registration</h2>
+    </div>
+
+    {% if message %}
+        <div class="notification">{{ message }}</div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('main.user_signup') }}">
+        <label>Username for Login:</label>
+        <input type="text" name="usr_nm" required>
+
+        <label>Full Name:</label>
+        <input type="text" name="usr_full_nm" required>
+
+        <label>Phone Number:</label>
+        <input type="text" name="usr_phone" placeholder="012445678" required>
+
+        <label>Email:</label>
+        <input type="email" name="usr_email" placeholder="active email address required" required>
+
+        <label>National ID:</label>
+        <input type="text" name="usr_nid" required>
+
+        <label>Address:</label>
+        <input type="text" name="usr_add" required>
+
+        <label>City:</label>
+        <input type="text" name="usr_city" required>
+
+        <label>Region:</label>
+        <input type="text" name="usr_region" required>
+
+        <label>Country:</label>
+        <input type="text" name="usr_country" required>
+
+        <label>Date of Birth:</label>
+        <input type="date" name="usr_dob" required>
+
+        <label>Company Name:</label>
+        <input type="text" name="usr_company_nm" required>
+
+        <label>Company Registration Number:</label>
+        <input type="text" name="usr_company_reg_no" required>
+
+        <label>Position Name:</label>
+        <input type="text" name="usr_comp_pos_nm" required>
+
+        <label>Password:</label>
+        <input type="password" name="usr_pass" required>
+
+        <label>User Role Name:</label>
+        <select name="usr_role_nm" required>
+            <option value="Customer">Customer</option>
+            <option value="Supplier">Supplier</option>
+        </select>
+
+        <button type="submit" class="submit-button">Register</button>
+    </form>
+
+    <div class="login-link">
+        Already have an account? <a href="{{ url_for('main.home') }}">Login here</a>
+    </div>
+</div>
+</body>
+</html>

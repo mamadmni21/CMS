@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Production Department</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Icons + Bootstrap -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Page-specific stylesheet -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='assets/css/production_department.css') }}">
+</head>
+<body>
+
+<!-- ───── Top bar ─────────────────────────────────────────────── -->
+<div class="top-bar">
+    <div class="top-left">
+        <img src="{{ url_for('static', filename='assets/img/logo_cms.png') }}" alt="CMS Icon">
+        <h1>Production Department</h1>
+    </div>
+    <div class="top-right">
+      <a href="javascript:history.back()" class="back-button">
+        <span class="material-icons">arrow_back</span>
+      </a>
+    </div>
+</div>
+
+<!-- ───── Welcome box ─────────────────────────────────────────── -->
+<div class="welcome-section">
+    <div class="welcome-box">
+        <div class="profile-pic">
+            <img src="{{ url_for('static', filename='assets/img/user_placeholder.png') }}" alt="Profile">
+        </div>
+        <div class="welcome-text">
+            <h2>Welcome{{ ', ' + usr_full_nm}} 👋</h2>
+            <p class="subtitle">Production tools & resources</p>
+        </div>
+    </div>
+</div>
+
+<!-- ───── Role-based menu ─────────────────────────────────────── -->
+<div class="dashboard-container">
+    <h3>Production Apps</h3>
+    <div class="button">
+        {% for menu_label in menu_items %}
+            {% set menu_icon = menu_icons.get(menu_label) %}
+            {% set route = TAB_ROUTE_MAP.get(menu_label) %}
+            
+            <a href="{{ url_for(route) if route else '#' }}" class="tab-button">
+                {% if menu_icon %}
+                    {% if menu_icon.endswith('.png') or menu_icon.endswith('.jpg') %}
+                        <img src="{{ url_for('static', filename='assets/img/icons/' + menu_icon) }}" alt="icon" />
+                    {% else %}
+                        <span class="material-icons icon-left">{{ menu_icon }}</span>
+                    {% endif %}
+                {% else %}
+                    <span class="material-icons icon-left">apps</span>
+                {% endif %}
+                <span class="label-right">{{ menu_label }}</span>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

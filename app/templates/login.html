@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - CMS Flask</title>
+    <!-- Favicon (browser tab icon) -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/img/logo_cms.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='assets/img/logo_cms.png') }}">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/login.css') }}">
+
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-image"></div>
+        <div class="login-form">
+            <!-- Logo above title -->
+            <img src="{{ url_for('static', filename='assets/img/logo_cms.png') }}" alt="Logo" class="login-logo">
+            <h2>Corporate Management Login</h2>
+
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
+            <form method="POST" action="{{ url_for('main.login') }}">
+                <label>Username:</label>
+                <input type="text" name="username" required>
+                <label>Password:</label>
+                <input type="password" name="password" required>
+                <button type="submit">Login</button>
+
+                <p style="margin-top: 15px;">Don't have an account? <a href="{{ url_for('main.user_signup') }}">Create here</a></p>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>

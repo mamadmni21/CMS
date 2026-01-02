@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Purchase Order History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/purchase_order_history.css') }}" rel="stylesheet">
+
+    <!-- Select2 and jQuery -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#pur-req-select').select2({
+                placeholder: "Search ID here",
+                allowClear: true,
+                width: '100%'  // This fixes the layout issue
+                
+            });
+
+
+            // Auto-submit only after full selection
+            $('#pur-req-select').on('select2:select', function () {
+                $('#search-form').submit();
+            });
+        });
+    </script>
+
+</head>
+<body>
+<!-- Top Bar -->
+<div class="top-bar">
+    <div class="top-left">
+        <img src="{{ url_for('static', filename='assets/img/logo_cms.png') }}" alt="CMS Icon">
+        <h1>Purchase Order History</h1>
+    </div>
+    <div class="top-right">
+      <a href="javascript:history.back()" class="back-button">
+        <span class="material-icons">arrow_back</span>
+      </a>
+    </div>
+</div>
+
+<div class="content-container">
+    <!-- Content Box 1 -->
+    <div class="content-box">
+        <h2>Purchase Order List</h2>
+        <form method="GET" style="margin-bottom: 10px;">
+            <label for="date_filter">Filter by Date:</label>
+            <input type="date" id="date_filter" name="date_filter" value="{{ selected_date }}">
+            <button type="submit">Filter</button>
+            <button type="button" onclick="document.getElementById('import-popup').style.display='block'">Import Data from Excel</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th><th>User</th><th>Item</th><th>Qty</th><th>Unit</th><th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for req in pur_reqs %}
+                <tr>
+                    <td>{{ req.pur_req_id }}</td>
+                    <td>{{ req.pur_req_usr_name }}</td>
+                    <td>{{ req.pur_req_itm_name }}</td>
+                    <td>{{ req.pur_req_itm_qty }}</td>
+                    <td>{{ req.pur_req_itm_unit }}</td>
+                    <td>{{ req.pur_req_sts }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Content Box 2 -->
+    <div class="content-box">
+        <h2>Edit Request</h2>
+
+        <!-- Search Form -->
+        <form id="search-form" method="GET" style="max-width: 200px; margin-bottom: 20px;">
+            <label for="pur-req-select">Purchase Request ID</label>
+            <select id="pur-req-select" name="selected_id" style="width: 100%;">
+                <option></option>
+                {% for req in pur_reqs %}
+                    <option value="{{ req.pur_req_id }}" {% if selected_id|string == req.pur_req_id|string %}selected{% endif %}>
+                        {{ req.pur_req_id }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+
+        {% if selected_req %}
+        <form method="POST">
+            <input type="hidden" name="pur_req_id" value="{{ selected_req.pur_req_id }}">
+
+            <label>User Name</label>
+            <input type="text" name="pur_req_usr_nm" value="{{ selected_req.pur_req_usr_name }}" readonly>
+
+            <label>User ID</label>
+            <input type="text" name="pur_req_usr_id" value="{{ selected_req.pur_req_usr_id }}" readonly>
+
+            <label>Department</label>
+            <input type="text" name="pur_req_dept" value="{{ selected_req.pur_req_dept }}" readonly>
+
+            <label>Item ID</label>
+            <input type="text" name="pur_req_itm_id" value="{{ selected_req.pur_req_itm_id }}" readonly>
+
+            <label>Item Name</label>
+            <input type="text" name="pur_req_itm_name" value="{{ selected_req.pur_req_itm_name }}">
+
+            <label>Quantity</label>
+            <input type="text" name="pur_req_itm_qty" value="{{ selected_req.pur_req_itm_qty }}">
+
+            <label>Unit</label>
+            <input type="text" name="pur_req_itm_unit" value="{{ selected_req.pur_req_itm_unit }}">
+
+            <label>Deadline</label>
+            <input type="text" name="pur_req_date" value="{{ selected_req.pur_req_date }}">
+
+            <button name="action" value="confirm">Confirm</button>
+        </form>
+        {% endif %}
+    </div>
+
+    <!-- Excel Data Table -->
+    {% if history_data %}
+    <div class="content-box">
+        <h3>Imported Excel Preview</h3>
+        <table>
+            <thead>
+                <tr>
+                    {% for key in history_data[0].keys() %}
+                        <th>{{ key }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in history_data %}
+                    <tr>
+                        {% for val in row.values() %}
+                            <td>{{ val }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% elif file_error %}
+    <div class="content-box" style="color: red;">{{ file_error }}</div>
+    {% endif %}
+
+</div>
+
+<!-- Import Popup -->
+<div id="import-popup" style="display:none; position:fixed; top:20%; left:30%; background:white; border:1px solid #ccc; padding:20px; z-index:999;">
+    <h3>Import Excel File</h3>
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('main.purchase_order_history') }}">
+        <input type="file" name="excel_file" accept=".xlsx, .xls" required>
+        <p style="font-size: small; color: gray;">Ensure column headers match the table above. Duplicate IDs will be ignored.</p>
+        <button type="submit">Upload</button>
+        <button type="button" onclick="document.getElementById('import-popup').style.display='none'">Cancel</button>
+    </form>
+</div>
+</body>
+</html>

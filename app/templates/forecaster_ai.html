@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Forecast Insights</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="{{ url_for('static', filename='assets/css/forecaster_ai.css') }}" rel="stylesheet">
+
+    <!-- Chart.js + jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+<div class="top-bar">
+    <h1>📊 AI Financial Forecaster</h1>
+    <a href="javascript:history.back()" class="back-button">← Back</a>
+</div>
+
+<div class="content-container">
+    <!-- BOX 1 -->
+    <div class="content-box box-left">
+        <h2>🔮 Forecast Controls</h2>
+        <button class="forecast-btn" data-type="cashflow">💰 Cash Flow Forecast</button>
+        <button class="forecast-btn" data-type="delay">⏳ Payment Delay Prediction</button>
+        <button class="forecast-btn" data-type="liquidity">💡 Liquidity Improvement</button>
+        <button class="forecast-btn" data-type="stability">🧭 Financial Stability</button>
+    </div>
+
+    <!-- BOX 2 -->
+    <div class="content-box box-middle">
+        <h2>📘 Forecast Insights</h2>
+        <div id="forecast-details">
+            <p>Select a forecast type to view AI analysis.</p>
+        </div>
+    </div>
+
+    <!-- BOX 3 -->
+    <div class="content-box box-right">
+        <h2>📈 Chart Visualization</h2>
+        <canvas id="forecastChart"></canvas>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    let chart;
+
+    $(".forecast-btn").click(function() {
+        const type = $(this).data("type");
+        $.getJSON(`/api/forecast/${type}`, function(data) {
+            $("#forecast-details").html(`<pre>${data.summary}</pre>`);
+
+            // If chart data exists, show chart
+            if (data.chart_data && data.chart_data.length > 0) {
+                const labels = data.chart_data.map(d => d.date);
+                const values = data.chart_data.map(d => d.value);
+
+                const ctx = document.getElementById('forecastChart').getContext('2d');
+                if (chart) chart.destroy();
+
+                chart = new Chart(ctx, {
+                    type: type === "delay" ? "bar" : "line",
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: type === "delay" ? "Payment Delay (days)" : "Cash Flow (USD)",
+                            data: values,
+                            borderWidth: 2,
+                            borderColor: "#007bff",
+                            backgroundColor: "rgba(0, 123, 255, 0.2)",
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            } else {
+                if (chart) chart.destroy();
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
+
+<div class="form-section">
+    <h3>🏢 Supplier Report</h3>
+
+    <label for="supplier_ids">Select Supplier IDs</label>
+    <select id="supplier_ids" name="supplier_ids" multiple class="form-control">
+        {% for sid in supplier_ids %}
+        <option value="{{ sid[0] }}">{{ sid[0] }}</option>
+        {% endfor %}
+    </select>
+    <small class="form-text text-muted">Hold CTRL (Windows) or CMD (Mac) to select multiple IDs.</small>
+</div>
+
+<hr>
+
+<table id="supplier-data-table" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in supplier_data %}
+        <tr>
+            <td>{{ row.supplier_id }}</td>
+            <td>{{ row.supplier_name }}</td>
+            <td>{{ row.supplier_address }}</td>
+            <td>{{ row.supplier_phone }}</td>
+            <td>{{ row.supplier_email }}</td>
+            <td>{{ row.supplier_status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div>
+    <label for="report_notes">Notes</label>
+    <textarea id="report_notes" name="report_notes" class="form-control"></textarea>
+</div>
+
+<div class="form-footer">
+    <button type="submit" class="btn btn-primary">Generate Report</button>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var supplierTable = $('#supplier-data-table').DataTable({
+            responsive: true,
+            autoWidth: false,  // ✅ same as PO report
+            pageLength: 5      // ✅ consistent pagination
+        });
+
+        // ✅ make sure table resizes with window/content-box
+        $(window).on('resize', function () {
+            supplierTable.columns.adjust().responsive.recalc();
+        });
+    });
+</script>

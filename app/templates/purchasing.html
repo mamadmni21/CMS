@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Purchasing - CMS</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/img/logo_cms.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='assets/img/logo_cms.png') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/purchasing.css') }}">
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-left">
+            <img src="{{ url_for('static', filename='assets/img/logo_cms.png') }}" alt="CMS Icon">
+            <h1>Purchasing Department</h1>
+        </div>
+        <div class="top-right">
+            <a href="{{ url_for('main.dashboard') }}" class="back-button">
+                <span class="material-icons">home</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+        <div class="welcome-box">
+            <div class="profile-pic">
+                <img src="{{ url_for('static', filename='assets/img/user_placeholder.png') }}" alt="User Photo">
+            </div>
+            <div class="welcome-text">
+                <h2>Welcome, {{ usr_full_nm or 'Finance User' }} 👋</h2>
+                <div class="role-description">
+                    Access to procurement and vendor management tools.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Section -->
+    <div class="dashboard-container">
+        <h3>Purchasing Apps</h3>
+        <div class="button">
+            {% for menu_label in menu_items %}
+                {% set menu_icon = menu_icons.get(menu_label) %}
+                {% set route = TAB_ROUTE_MAP.get(menu_label) %}
+                
+                <a href="{{ url_for(route) if route else '#' }}" class="tab-button">
+                    {% if menu_icon %}
+                        {% if menu_icon.endswith('.png') or menu_icon.endswith('.jpg') %}
+                            <img src="{{ url_for('static', filename='assets/img/icons/' + menu_icon) }}" alt="icon" />
+                        {% else %}
+                            <span class="material-icons icon-left">{{ menu_icon }}</span>
+                        {% endif %}
+                    {% else %}
+                        <span class="material-icons icon-left">apps</span>
+                    {% endif %}
+                    <span class="label-right">{{ menu_label }}</span>
+                </a>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</body>
+</html>

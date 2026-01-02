@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - CMS</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/img/logo_cms.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='assets/img/logo_cms.png') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/dashboard.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-left">
+            <img src="{{ url_for('static', filename='assets/img/logo_cms.png') }}" alt="CMS Icon">
+            <h1>Corporate Management System</h1>
+
+        </div>
+        <div class="top-right">
+            <a class="logout" href="{{ url_for('main.logout') }}">
+                <span class="material-icons logout-icon">logout</span>
+                <span class="logout-text">Logout</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Welcome Box -->
+    <div class="welcome-section">
+        <div class="welcome-box">
+            <div class="profile-pic">
+                <img src="{{ url_for('static', filename='assets/img/user_placeholder.png') }}" alt="User Photo">
+            </div>
+            <div class="welcome-text">
+                <h2>Welcome, {{ usr_full_nm }}</h2>
+                <p>Our Beloved {{ role }}</p>
+                <div class="role-description">
+                    {% if role == 'Developer Account' %}
+                        Full access to all system modules and development tools.
+                    {% elif role == 'Finance and Accounting' %}
+                        Access to financial records, revenue, and reporting tools.
+                    {% elif role == 'HRM Staff' %}
+                        Access to human resource management modules.
+                    {% elif role == 'Purchasing Department Staff' %}
+                        Access to procurement tools and vendor management.
+                    {% else %}
+                        General access to available modules.
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% if role_id in ["1014", "1018"] %}
+            <div class="balance-box">
+                <h2>Account Balance</h2>
+                <p>{{ currency }} {{ balance_myr or "0.00" }}</p>
+            </div>
+        {% endif %}
+
+    </div>
+    <!-- Dashboard Buttons -->
+    <div class="dashboard-container">
+        <h3>Your Available Apps</h3>
+        <div class="button">
+            {% for label in tabs %}
+                {% set route_name = TAB_ROUTE_MAP.get(label) %}
+                {% set menu_icon = MENU_ICONS.get(label) %}
+
+                {% if route_name %}
+                    <a href="{{ url_for(route_name) }}" class="tab-button" style="display: flex; align-items: center;">
+                        {% if menu_icon %}
+                            {% if menu_icon.endswith('.png') or menu_icon.endswith('.jpg') %}
+                                <img src="{{ url_for('static', filename='assets/img/icons/' + menu_icon) }}"
+                                    style="width: 54px; height: 54px; margin-right: 8px;" />
+                            {% else %}
+                                <span class="material-icons icon-left">{{ menu_icon }}</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="material-icons icon-left">apps</span>
+                        {% endif %}
+                        <span class="label-right">{{ label }}</span>
+                    </a>
+                {% else %}
+                    <a class="tab-button disabled" href="#" style="display: flex; align-items: center;">
+                        <span class="material-icons icon-left">error</span>
+                        <span class="label-right">{{ label }}</span>
+                    </a>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+</body>
+</html>

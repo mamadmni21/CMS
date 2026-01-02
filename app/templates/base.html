@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Coming Soon !!!</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/img/logo_cms.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='assets/img/logo_cms.png') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/base.css') }}">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="top-left">
+            <img src="{{ url_for('static', filename='assets/img/logo_cms.png') }}" alt="CMS Icon">
+            <h1>Corporate Management System</h1>
+        </div>
+        <div class="top-right">
+            <!-- Back Button -->
+            <a href="javascript:history.back()" class="back-btn">
+                <span class="material-icons">arrow_back</span>
+                <span class="back-text"></span>
+            </a>
+        </div>
+    </div>
+
+    <header class="main-header">
+        <h1>Coming Soon...</h1>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="main-footer">
+        <p>© {{ current_year|default(2025) }} Corporate Management System by SEPUH — All rights reserved</p>
+    </footer>
+</body>
+</html>

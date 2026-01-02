@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Supplier Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/supplier_management.css') }}" rel="stylesheet">
+
+    <!-- Select2 and jQuery -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#pur-req-select').select2({
+                placeholder: "Search ID here",
+                allowClear: true,
+                width: '100%'  // This fixes the layout issue
+                
+            });
+
+            // Auto-submit only after full selection
+            $('#pur-req-select').on('select2:select', function () {
+                $('#search-form').submit();
+            });
+        });
+    </script>
+
+</head>
+<body>
+<!-- Top Bar -->
+<div class="top-bar">
+    <div class="top-left">
+        <img src="{{ url_for('static', filename='assets/img/logo_cms.png') }}" alt="CMS Icon">
+        <h1>Supplier Management</h1>
+    </div>
+    <div class="top-right">
+        <a href="{{ url_for('main.dashboard') }}" class="back-button">
+            <span class="material-icons">home</span>
+        </a>
+    </div>
+</div>
+
+<div class="content-container">
+    <!-- Content Box 1 -->
+
+    <!-- Content Box 1: Supplier List -->
+    <div class="content-box">
+        <h2>Supplier List</h2>
+        <form method="GET" style="margin-bottom: 10px;">
+            <label for="date_filter">Filter by Date:</label>
+            <input type="date" id="date_filter" name="date_filter" value="{{ selected_date }}">
+            <button type="submit">Filter</button>
+            <button type="button" onclick="document.getElementById('import-popup').style.display='block'">Import Data from Excel</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th><th>Name</th><th>Address</th><th>Phone</th><th>Email</th><th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for supplier in supplier_data %}
+                <tr>
+                    <td>{{ supplier.supplier_id }}</td>
+                    <td>{{ supplier.supplier_name }}</td>
+                    <td>{{ supplier.supplier_address }}</td>
+                    <td>{{ supplier.supplier_phone }}</td>
+                    <td>{{ supplier.supplier_email }}</td>
+                    <td>{{ supplier.supplier_status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Content Box 2: Add New Supplier -->
+    <div class="content-box">
+        <h2>Add New Supplier</h2>
+        <form method="POST">
+            <input type="hidden" name="form_type" value="add">
+            <label>Supplier Name</label>
+            <input type="text" name="supplier_name" required>
+
+            <label>Address</label>
+            <input type="text" name="supplier_address">
+
+            <label>Phone</label>
+            <input type="text" name="supplier_phone">
+
+            <label>Email</label>
+            <input type="email" name="supplier_email">
+
+            <label>Status</label>
+            <select name="supplier_status">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+
+            <button type="submit">Add Supplier</button>
+        </form>
+    </div>
+
+    <!-- Content Box 3: Edit Existing Supplier -->
+    <div class="content-box">
+        <h2>Edit Supplier</h2>
+        <!-- Dropdown selection -->
+        <form id="search-form" method="GET" style="max-width: 250px; margin-bottom: 20px;">
+            <label for="supplier_id_select">Select Supplier</label>
+            <select id="supplier_id_select" name="selected_supplier_id" style="width: 100%;">
+                <option value="">-- Select Supplier --</option>
+
+                {% for supplier in supplier_data %}
+                    <option value="{{ supplier.supplier_id }}" {% if selected_supplier and selected_supplier.supplier_id == supplier.supplier_id %}selected{% endif %}>
+                        {{ supplier.supplier_id }} - {{ supplier.supplier_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+
+        {% if selected_supplier %}
+        <!-- Editable Form -->
+        <form method="POST">
+            <input type="hidden" name="form_type" value="edit">
+            <input type="hidden" name="supplier_id" value="{{ selected_supplier.supplier_id }}">
+
+            <label>Supplier Name</label>
+            <input type="text" name="supplier_name" value="{{ selected_supplier.supplier_name }}" required>
+
+            <label>Address</label>
+            <input type="text" name="supplier_address" value="{{ selected_supplier.supplier_address }}">
+
+            <label>Phone</label>
+            <input type="text" name="supplier_phone" value="{{ selected_supplier.supplier_phone }}">
+
+            <label>Email</label>
+            <input type="email" name="supplier_email" value="{{ selected_supplier.supplier_email }}">
+
+            <label>Status</label>
+            <select name="supplier_status">
+                <option value="Active" {% if selected_supplier.supplier_status == 'Active' %}selected{% endif %}>Active</option>
+                <option value="Inactive" {% if selected_supplier.supplier_status == 'Inactive' %}selected{% endif %}>Inactive</option>
+            </select>
+
+            <button type="submit">Save Changes</button>
+        </form>
+        {% endif %}
+    </div>
+
+    <!-- Content Box 4: Excel Data Preview -->
+    {% if history_data %}
+    <div class="content-box">
+        <h3>Imported Excel Preview</h3>
+        <table>
+            <thead>
+                <tr>
+                    {% for key in history_data[0].keys() %}
+                        <th>{{ key }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in history_data %}
+                    <tr>
+                        {% for val in row.values() %}
+                            <td>{{ val }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% elif file_error %}
+    <div class="error">{{ file_error }}</div>
+    {% endif %}
+
+</div>
+
+
+<!-- Import Popup -->
+<div id="import-popup" style="display:none; position:fixed; top:20%; left:30%; background:white; border:1px solid #ccc; padding:20px; z-index:999;">
+    <h3>Import Excel File</h3>
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('main.purchase_order_history') }}">
+        <input type="file" name="excel_file" accept=".xlsx, .xls" required>
+        <p style="font-size: small; color: gray;">Ensure column headers match the table above. Duplicate IDs will be ignored.</p>
+        <button type="submit">Upload</button>
+        <button type="button" onclick="document.getElementById('import-popup').style.display='none'">Cancel</button>
+    </form>
+</div>
+</body>
+</html>

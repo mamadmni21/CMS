@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HR Reporting Tools</title>
+
+    <!-- Google Icons & Bootstrap -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Page-Specific Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/hr_reporting_tools.css') }}">
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar d-flex justify-content-between align-items-center p-2">
+    <div class="top-left d-flex align-items-center">
+        <img src="{{ url_for('static', filename='assets/img/logo_cms.png') }}" alt="CMS Icon" class="me-2" style="height:40px;">
+        <h1 class="h4 mb-0">HR Reporting Tools</h1>
+    </div>
+    <div class="top-right">
+        <a href="{{ url_for('main.dashboard') }}" class="back-button btn btn-outline-primary">
+            <span class="material-icons">home</span>
+        </a>
+    </div>
+</div>
+
+<!-- Welcome Section -->
+<div class="welcome-section text-center my-4">
+    <div class="welcome-box d-inline-flex align-items-center">
+        <div class="profile-pic me-3">
+            <img src="{{ url_for('static', filename='assets/img/user_placeholder.png') }}" alt="User Photo" style="height:60px; border-radius:50%;">
+        </div>
+        <div class="welcome-text">
+            <h2 class="h5">Welcome, {{ username }} 👋</h2>
+            <p class="subtitle text-muted">HR Reporting Area</p>
+        </div>
+    </div>
+</div>
+
+<!-- Content Section with 3 Boxes -->
+<div class="container-fluid">
+    <!-- Row 1: Box 1 + Box 2 -->
+    <div class="row">
+        <!-- Box 1: HR Reporting Apps -->
+        <div class="col-md-6">
+            <div class="content-tool-box">
+                <h2>HR Reporting Apps</h2>
+                <div class="tool-btn-container">
+                    <button class="tool-pg-btn" onclick="loadForm('attendance')">
+                        <img src="{{ url_for('static', filename='assets/img/icons/attendance_report_icon.png') }}" alt="Attendance Reports">
+                        <span>Attendance Reports</span>
+                    </button>
+
+                    <button class="tool-pg-btn" onclick="loadForm('performance')">
+                        <img src="{{ url_for('static', filename='assets/img/icons/performance_report_icon.png') }}" alt="Performance Reports">
+                        <span>Performance Reports</span>
+                    </button>
+
+                    <button class="tool-pg-btn" onclick="loadForm('payroll')">
+                        <img src="{{ url_for('static', filename='assets/img/icons/payroll_report_icon.png') }}" alt="Payroll Reports">
+                        <span>Payroll Reports</span>
+                    </button>
+
+                    <button class="tool-pg-btn" onclick="loadForm('recruitment')">
+                        <img src="{{ url_for('static', filename='assets/img/icons/recruitment_report_icon.png') }}" alt="Recruitment Reports">
+                        <span>Recruitment Reports</span>
+                    </button>
+
+                    <button class="tool-pg-btn" onclick="loadForm('inventory')">
+                        <img src="{{ url_for('static', filename='assets/img/icons/inventory_icon.png') }}" alt="Inventory Reports">
+                        <span>Inventory Reports</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Box 2: Forms -->
+        <div class="col-md-6">
+            <div class="content-tool-box">
+                <div class="section-box">
+                    <h5 class="mb-3">Form Details</h5>
+                    <div id="form-container">
+                        <p class="text-muted">Select a report app to view its form.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Row 2: Box 3 -->
+    <div class="row mt-3">
+        <!-- Box 3: Table -->
+        <div class="col-md-12">
+            <div class="content-tool-box">
+                <div class="section-box">
+                    <h5 class="mb-3">Reference Table</h5>
+                    <div id="table-container">
+                        <p class="text-muted">Select a report app to view related data.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Script to Handle Dynamic Forms & Tables -->
+<script>
+    function loadForm(appType) {
+        fetch(`/hr_reporting/load_form/${appType}`)
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById("form-container").innerHTML = html;
+            });
+
+        fetch(`/hr_reporting/load_table/${appType}`)
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById("table-container").innerHTML = html;
+            });
+    }
+</script>
+
+</body>
+</html>

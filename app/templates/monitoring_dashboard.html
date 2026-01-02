@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Management System</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/img/logo_cms.png') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/monitoring_dash.css') }}">
+    <script>
+        function toggleDropdown(id) {
+            var content = document.getElementById(id);
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</head>
+<body>
+    <div class="top-bar">
+        <img src="{{ url_for('static', filename='assets/img/logo_cms.png') }}" alt="CMS Icon">
+        <h1>Corporate Management System</h1>
+        <div class="nav-links">
+            <a href="#">MENU</a>
+            <a href="#">ABOUT</a>
+            <a href="#">SERVICES</a>
+            <a href="#">SUPPORT</a>
+            <a class="logout" href="{{ url_for('main.logout') }}">LOGOUT</a>
+        </div>
+    </div>
+
+    <div class="main-layout">
+        <div class="sidebar">
+            <a class="back-button" href="{{ url_for('main.dashboard') }}">← Back to Dashboard</a>
+
+            <div class="dropdown">
+                <div class="dropdown-title" onclick="toggleDropdown('dashboard-menu')">DASHBOARD MENU</div>
+                <div class="dropdown-content" id="dashboard-menu">
+                    <a href="#">CUSTOMER</a>
+                    <a href="#">SUPPLIER</a>
+                    <a href="#">HR</a>
+                    <a href="#">PURCHASING</a>
+                    <a href="#">FINANCE</a>
+                    <a href="#">CRM</a>
+                    <a href="#">GA</a>
+                    <a href="#">PRODUCTION</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <div class="dropdown-title" onclick="toggleDropdown('user-menu')">USER MENU</div>
+                <div class="dropdown-content" id="user-menu">
+                    <a href="#">DEVELOPER</a>
+                    <a href="#">HR</a>
+                    <a href="#">PURCHASING</a>
+                    <a href="#">FINANCE</a>
+                    <a href="#">CRM</a>
+                    <a href="#">GA</a>
+                    <a href="#">PRODUCTION</a>
+                    <a href="#">MANAGEMENT</a>
+                    <a href="#">CUSTOMER</a>
+                    <a href="#">SUPPLIER</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <div class="dropdown-title" onclick="toggleDropdown('factory-menu')">FACTORY MENU</div>
+                <div class="dropdown-content" id="factory-menu">
+                    <a href="#">FACTORY 1</a>
+                    <a href="#">FACTORY 2</a>
+                    <a href="#">FACTORY 3</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-container">
+            <div class="dashboard-box">
+                <h3>Total CUSTOMER</h3>
+                <p>1,234</p>
+            </div>
+            <div class="dashboard-box">
+                <h3>PRODUCT in STOCK</h3>
+                <p>8,765</p>
+            </div>
+            <div class="dashboard-box">
+                <h3>Total SALES</h3>
+                <p>$452,000</p>
+            </div>
+            <div class="dashboard-box">
+                <h3>Total FACTORY</h3>
+                <p>3</p>
+            </div>
+            <div class="dashboard-box">
+                <h3>Total CUSTOMER</h3>
+                <p>45</p>
+            </div>
+            <div class="dashboard-box">
+                <h3>Total SUPPLIER</h3>
+                <p>23</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<div class="form-section">
+    <h3>📑 Incoming Bills Report</h3>
+    <label for="bill_ids">Select Bill IDs</label>
+    <select id="bill_ids" name="bill_ids" multiple class="form-control">
+        {% for bill in bill_ids %}
+        <option value="{{ bill[0] }}">{{ bill[0] }}</option>
+        {% endfor %}
+    </select>
+
+
+</div>
+
+<hr>
+
+<table id="billsTable" class="display">
+    <thead>
+        <tr>
+            <th>Bill ID</th>
+            <th>Supplier</th>
+            <th>Amount</th>
+            <th>Currency</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+</table>
+
+<div>
+    <label for="report_notes">Notes</label>
+    <textarea id="report_notes" name="report_notes" class="form-control"></textarea>
+</div>
+
+<!-- Move button here -->
+<div class="form-footer">
+    <button id="generate_report" class="btn btn-primary">Generate Report</button>
+</div>
+
+
+<script>
+$(document).ready(function () {
+    $('#bill-supplier-select').select2();
+
+    var billsTable = $('#incoming-bills-table').DataTable({
+        ajax: {
+            url: '/api/incoming_bills',
+            data: function (d) {
+                d['supplier_id[]'] = $('#bill-supplier-select').val();
+            },
+            dataSrc: 'data'
+        },
+        columns: [
+            { data: 'bill_id', title: 'Bill ID' },
+            { data: 'supplier_name', title: 'Supplier' },
+            { data: 'bill_amount', title: 'Amount' },
+            { data: 'currency', title: 'Currency' },
+            { data: 'bill_date', title: 'Date' },
+            { data: 'status', title: 'Status' }
+        ]
+    });
+
+    $('#bill-supplier-select').on('change', function () {
+        billsTable.ajax.reload();
+    });
+});
+</script>
+

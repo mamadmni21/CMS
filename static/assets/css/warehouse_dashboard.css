@@ -1,0 +1,221 @@
+/* Section Title (optional use) */
+.section-title {
+    margin-top: 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+.top-bar {
+    background-color: #004080;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.top-bar img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.top-bar img {
+    height: 40px; /* default desktop */
+    margin-right: 10px;
+}
+
+.top-bar h1 {
+    font-size: 1.5em; /* default desktop */
+    margin: 0;
+}
+
+.top-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* Mobile Responsive Styling */
+@media (max-width: 768px) {
+    .top-bar img {
+        height: 18px; /* smaller logo */
+    }
+
+    .top-bar h1 {
+        font-size: 1.1em; /* smaller title */
+    }
+
+    .logout {
+        padding: 8px;
+    }
+
+    .logout-text {
+        display: none; /* hide "Logout" text */
+    }
+
+    .logout-icon {
+        margin: 0; /* center icon when alone */
+    }
+}
+
+
+/* Welcome Box */
+.welcome-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.welcome-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #ffffff;
+    padding: 1.2rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    flex-wrap: wrap; /* This allows responsiveness on small screens */
+    max-width: 800px;
+    width: 100%;
+}
+
+.profile-pic img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #007bff;
+}
+
+.welcome-text h2 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: #333;
+}
+
+/* Responsive styling for small screens */
+@media (max-width: 600px) {
+    .welcome-box {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-pic img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .welcome-text h2 {
+        font-size: 1.5rem;
+    }
+}
+
+
+
+
+
+/* Contents part */
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Shared styling for all boxes */
+.box-1, .box-2, .box-3, .box-4 {
+    flex: 1 1 calc(50% - 20px); /* 2 boxes per row on large screens */
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+/* Full width for mobile screens */
+@media (max-width: 768px) {
+    .box-1, .box-2, .box-3, .box-4 {
+        flex: 1 1 100%;
+    }
+
+    .payment-summary .payment-amount h2 {
+        font-size: 1.2rem;
+    }
+
+    .payment-summary .amount {
+        font-size: 1.5rem;
+    }
+
+    .next-payment p {
+        font-size: 1rem;
+    }
+
+    #monthlyTransactionChart {
+        max-height: 250px;
+    }
+}
+
+.project-item {
+    margin-bottom: 20px;
+}
+
+.project-item .material-icons {
+    vertical-align: middle;
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+.list-group-item .material-icons {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+
+
+.box-1 form input[type="file"] {
+    max-width: 250px;
+    margin: auto;
+}
+
+
+/* grid of cards */
+.content-grid{
+    --gap:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:var(--gap);
+    padding:0 20px 40px;
+}
+.monitor-card{
+    background:#fff;
+    border-radius:14px;
+    box-shadow:0 3px 12px rgba(0,0,0,.5);
+    padding:25px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    transition:transform .25s ease,box-shadow .25s ease;
+}
+.monitor-card:hover{
+    transform:translateY(-4px);box-shadow:0 6px 16px rgba(0,0,0,.12);
+}
+.card-icon{font-size:42px;color:#0062ff;margin-bottom:10px}
+.metric{font-size:2.2rem;font-weight:700;margin:4px 0 2px;color:#181818}
+.hint{font-size:.83rem;color:#6f6f6f}
+
+/* subtle fade‑in animation */
+@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.fade-in{animation:fadeInUp .6s ease both}.delay-1{animation-delay:.05s}
+.delay-2{animation-delay:.10s}.delay-3{animation-delay:.15s}
+.delay-4{animation-delay:.20s}.delay-5{animation-delay:.25s}
+
+/* responsive tweaks */
+@media(max-width:480px){
+    .top-bar h1{font-size:1.2rem}
+    .metric{font-size:1.8rem}
+}

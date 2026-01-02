@@ -1,0 +1,319 @@
+/* Section Title (optional use) */
+.section-title {
+    margin-top: 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+.top-bar {
+    background-color: #004080;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.top-bar img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.top-bar img {
+    height: 40px; /* default desktop */
+    margin-right: 10px;
+}
+
+.top-bar h1 {
+    font-size: 1.5em; /* default desktop */
+    margin: 0;
+}
+
+.top-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* Mobile Responsive Styling */
+@media (max-width: 768px) {
+    .top-bar img {
+        height: 18px; /* smaller logo */
+    }
+
+    .top-bar h1 {
+        font-size: 1.1em; /* smaller title */
+    }
+
+    .logout {
+        padding: 8px;
+    }
+
+    .logout-text {
+        display: none; /* hide "Logout" text */
+    }
+
+    .logout-icon {
+        margin: 0; /* center icon when alone */
+    }
+}
+
+
+/* Welcome Box */
+.welcome-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.welcome-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #ffffff;
+    padding: 1.2rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    flex-wrap: wrap; /* This allows responsiveness on small screens */
+    max-width: 800px;
+    width: 100%;
+}
+
+.profile-pic img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #007bff;
+}
+
+.welcome-text h2 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: #333;
+}
+
+/* Responsive styling for small screens */
+@media (max-width: 600px) {
+    .welcome-box {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-pic img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .welcome-text h2 {
+        font-size: 1.5rem;
+    }
+}
+
+
+
+
+
+/* Contents part */
+.hr-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Shared styling for all boxes */
+.box-1, .box-2, .box-3, .box-4 {
+    flex: 1 1 calc(50% - 20px); /* 2 boxes per row on large screens */
+    background-color: #fff;
+    padding: 20px;
+    margin-left: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+
+/* Shared styling for all boxes */
+.content-box-1, .content-box-2, .content-box-3 {
+    flex: 1 1 calc(30% - 20px); /* 2 boxes per row on large screens */
+    background-color: #fff;
+    padding: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+
+
+/* Full width for mobile screens */
+@media (max-width: 768px) {
+    .box-1, .box-2, .box-3, .box-4 {
+        flex: 1 1 100%;
+    }
+
+    .payment-summary .payment-amount h2 {
+        font-size: 1.2rem;
+    }
+
+    .payment-summary .amount {
+        font-size: 1.5rem;
+    }
+
+    .next-payment p {
+        font-size: 1rem;
+    }
+
+    #monthlyTransactionChart {
+        max-height: 250px;
+    }
+}
+
+.project-item {
+    margin-bottom: 20px;
+}
+
+.project-item .material-icons {
+    vertical-align: middle;
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+.list-group-item .material-icons {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+
+
+.box-1 form input[type="file"] {
+    max-width: 250px;
+    margin: auto;
+}
+
+
+/* ───────── Base layout (≥ 992 px) ───────── */
+.menu-grid{
+    display:grid;
+    gap:1rem;
+    padding: 20px;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    /* Keeps the grid nicely centered on ultra‑wide screens */
+    max-width:1200px;
+    margin-inline:auto;
+}
+
+.menu-card{
+    background:#007bff;
+    color:#fff;
+    text-decoration:none;
+    padding:1.4rem 1.2rem;
+    border-radius:12px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    transition:background .25s, transform .25s;
+    box-shadow:0 4px 8px rgba(0,0,0,.05);
+}
+.menu-card:hover,
+.menu-card:focus{
+    background:#005dc8;
+    transform:translateY(-3px);
+}
+
+.icon-top{font-size:44px;margin-bottom:.6rem;line-height:1}
+.label-bottom{font-weight:600;font-size:1rem;text-align:center;line-height:1.2}
+
+/* ───────── Medium screens (tablets ≤ 991 px) ───────── */
+@media (max-width:991px){
+    .menu-grid{
+        grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    }
+    .icon-top{font-size:40px}
+    .label-bottom{font-size:.95rem}
+}
+
+/* ───────── Small screens (phones ≤ 575 px) ───────── */
+@media (max-width:575px){
+    .menu-grid{
+        grid-template-columns:1fr;          /* single‑column stack */
+        padding: 0rem;
+    }
+    .menu-card{
+        flex-direction:row;                 /* icon left, text right */
+        width: 400px;
+        justify-content:flex-start;
+        gap:.75rem;
+        padding:1rem;
+    }
+    .icon-top{font-size:32px;margin-bottom:0}
+    .label-bottom{font-size:.9rem;text-align:left}
+}
+
+
+/* tool page buttons */
+
+.content-tool-box {
+    display: flex;
+    flex-direction: column; /* Stack title and button row vertically */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.content-tool-box h2 {
+    margin-bottom: 20px; /* Gap between title and buttons */
+}
+
+.tool-btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+
+.tool-pg-btn {
+    display: flex;
+    flex-direction: column; /* Stack icon and text vertically */
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 25px;
+    width: 160px;
+    height: 160px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+}
+
+.tool-pg-btn img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+}
+
+.tool-pg-btn span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.tool-pg-btn:hover {
+    box-shadow: 0px 6px 12px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+    border-color: #888;
+}
+

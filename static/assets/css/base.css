@@ -1,0 +1,168 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f5f6fa;
+    color: #333;
+}
+
+.main-header {
+    background: #2b7a78;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+.main-footer {
+    background: #2b7a78;
+    color: #fff;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+.stub-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+
+.stub-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+    max-width: 400px;
+    text-align: center;
+}
+
+.stub-card h2 {
+    color: #e67e22;
+    margin-bottom: 0.5rem;
+}
+
+.stub-card p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stub-btn {
+    background: #2b7a78;
+    color: white;
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.stub-btn:hover {
+    background: #205d5a;
+}
+
+.back-btn {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    padding: 6px 12px;
+    background-color: #9c0505;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #2087db;
+}
+
+.back-btn .material-icons {
+    margin-right: 6px;
+}
+
+
+
+
+/* Section Title (optional use) */
+.section-title {
+    margin-top: 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+.top-bar {
+    background-color: #004080;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.top-bar img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.top-bar img {
+    height: 40px; /* default desktop */
+    margin-right: 10px;
+}
+
+.top-bar h1 {
+    font-size: 1.5em; /* default desktop */
+    margin: 0;
+}
+
+.top-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+/* Logout Button */
+.logout {
+    display: flex;
+    align-items: center;
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.logout .material-icons.logout-icon {
+    font-size: 20px;
+    margin-right: 6px;
+}
+
+.logout:hover {
+    background-color: #b02a37;
+}
+
+/* Mobile Responsive Styling */
+@media (max-width: 768px) {
+    .top-bar img {
+        height: 18px; /* smaller logo */
+    }
+
+    .top-bar h1 {
+        font-size: 1.1em; /* smaller title */
+    }
+
+    .logout {
+        padding: 8px;
+    }
+
+    .logout-text {
+        display: none; /* hide "Logout" text */
+    }
+
+    .logout-icon {
+        margin: 0; /* center icon when alone */
+    }
+}

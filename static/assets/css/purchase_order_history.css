@@ -1,0 +1,153 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+/* Section Title (optional use) */
+.section-title {
+    margin-top: 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+.top-bar {
+    background-color: #004080;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.top-bar img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.top-bar img {
+    height: 40px; /* default desktop */
+    margin-right: 10px;
+}
+
+.top-bar h1 {
+    font-size: 1.5em; /* default desktop */
+    margin: 0;
+}
+
+.top-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.back-button {
+    color: rgb(248, 248, 248); /* or your default color */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.back-button:hover {
+    color: #005dc8; /* blue on hover */
+}
+
+
+
+/* Mobile Responsive Styling */
+@media (max-width: 768px) {
+    .top-bar img {
+        height: 18px; /* smaller logo */
+    }
+
+    .top-bar h1 {
+        font-size: 1.1em; /* smaller title */
+    }
+
+}
+
+
+
+/* Clean Select2 single box layout */
+.select2-container--default .select2-selection--single {
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    background-color: white !important;
+    margin-left: 0px;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Remove padding from selected text */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    padding-left: -8px !important;
+    margin-left: 0 !important;
+    white-space: normal !important;     /* Allow wrapping */
+    overflow: visible !important;       /* Allow full content */
+    text-overflow: unset !important;    /* Remove truncation */
+    line-height: 1.5 !important;        /* Flexible line height */
+    text-align: left;
+}
+
+
+/* Ensure Select2 wrapper behaves consistently */
+.select2-container {
+    width: 100% !important;
+    margin-left: 0 !important;
+}
+
+.select2 {
+    display: block !important;
+    text-align: left !important;
+}
+
+/* Form container cleanup */
+.content-box form,
+#search-form {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+
+
+.content-container {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+.content-box {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background: #f9f9f9;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+form input, form select, form button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+}
+form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+form button:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,200 @@
+/* Section Title (optional use) */
+.section-title {
+    margin-top: 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+.top-bar {
+    background-color: #004080;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.top-bar img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.top-bar img {
+    height: 40px; /* default desktop */
+    margin-right: 10px;
+}
+
+.top-bar h1 {
+    font-size: 1.5em; /* default desktop */
+    margin: 0;
+}
+
+.top-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* Mobile Responsive Styling */
+@media (max-width: 768px) {
+    .top-bar img {
+        height: 18px; /* smaller logo */
+    }
+
+    .top-bar h1 {
+        font-size: 1.1em; /* smaller title */
+    }
+
+}
+
+
+/* Welcome Box */
+.welcome-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.welcome-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #ffffff;
+    padding: 1.2rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    flex-wrap: wrap; /* This allows responsiveness on small screens */
+    max-width: 800px;
+    width: 100%;
+}
+
+
+.profile-pic img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #007bff;
+}
+
+.welcome-text h2 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: #333;
+}
+
+/* Responsive styling for small screens */
+@media (max-width: 600px) {
+    .welcome-box {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-pic img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .welcome-text h2 {
+        font-size: 1.5rem;
+    }
+}
+
+
+
+
+.section-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #ffffff;
+    padding: 1.2rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    flex-wrap: wrap; /* This allows responsiveness on small screens */
+    max-width: 800px;
+    width: 100%;
+}
+
+.menu-card {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #f1f3f5;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.menu-card:hover {
+    background: #e9ecef;
+}
+.menu-card .icon {
+    margin-right: 8px;
+}
+
+
+/* tool page buttons */
+
+.content-tool-box {
+    display: flex;
+    flex-direction: column; /* Stack title and button row vertically */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.content-tool-box h2 {
+    margin-bottom: 20px; /* Gap between title and buttons */
+}
+
+.tool-btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+
+.tool-pg-btn {
+    display: flex;
+    flex-direction: column; /* Stack icon and text vertically */
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 25px;
+    width: 160px;
+    height: 160px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+}
+
+.tool-pg-btn img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+}
+
+.tool-pg-btn span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.tool-pg-btn:hover {
+    box-shadow: 0px 6px 12px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+    border-color: #888;
+}
+

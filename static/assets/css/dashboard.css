@@ -1,0 +1,420 @@
+/* General Page Styling */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Header */
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding: 10px 20px;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Section Title (optional use) */
+.section-title {
+    margin-top: 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+.top-bar {
+    background-color: #004080;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.top-bar img {
+    height: 40px; /* default desktop */
+    margin-right: 10px;
+}
+
+.top-bar h1 {
+    font-size: 1.5em; /* default desktop */
+    margin: 0;
+}
+
+.top-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+/* Logout Button */
+.logout {
+    display: flex;
+    align-items: center;
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.logout .material-icons.logout-icon {
+    font-size: 20px;
+    margin-right: 6px;
+}
+
+.logout:hover {
+    background-color: #b02a37;
+}
+
+/* Mobile Responsive Styling */
+@media (max-width: 768px) {
+    .top-bar img {
+        height: 18px; /* smaller logo */
+    }
+
+    .top-bar h1 {
+        font-size: 1.1em; /* smaller title */
+    }
+
+    .logout {
+        padding: 8px;
+    }
+
+    .logout-text {
+        display: none; /* hide "Logout" text */
+    }
+
+    .logout-icon {
+        margin: 0; /* center icon when alone */
+    }
+}
+
+
+/* Dashboard Container */
+.dashboard-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Role Description Text */
+.role-description {
+    margin-top: 5px;
+    color: #666;
+}
+
+/* Button Group */
+.button {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    margin-right: 50px;
+}
+
+/* Each Button */
+.tab-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.icon-top {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.icon-img {
+    width: 37px;
+    height: 37px;
+    object-fit: contain;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.label-right {
+    font-size: 1rem;
+    word-wrap: break-word;
+    white-space: normal; /* allow wrapping */
+    text-align: center;
+}
+
+
+
+
+@media (max-width: 576px) {
+    .icon-img {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+
+/* Responsive: Smaller icons on mobile */
+@media (max-width: 768px) {
+    .icon-top {
+        font-size: 36px;
+        margin-bottom: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .icon-top {
+        font-size: 28px;
+        margin-bottom: 6px;
+    }
+}
+
+.tab-button:hover,
+.tab-button:focus {
+    background-color: #67a8ee;
+    transform: translateY(-2px);
+    outline: none;
+}
+
+/* Icon Styling */
+.material-icons {
+    vertical-align: middle;
+    line-height: 1;
+}
+
+
+
+/* Tab Card (optional) */
+.tab-card {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* Welcome Box */
+.welcome-box {
+    display: flex;
+    align-items: center;
+    background: white;
+    margin-right: 50px;
+    min-width: 660px;
+    max-width: 680px;
+    padding: 20px;
+    margin: 0px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.profile-pic img {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #ddd;
+}
+
+.welcome-text h2 {
+    margin: 0 0 5px 0;
+}
+
+.welcome-text p {
+    margin: 0 0 10px 0;
+    color: #555;
+}
+
+/* Balance Box */
+.balance-box {
+    background: #ffffff;
+    padding: 20px;
+    flex: 1;
+    min-width: 250px;
+    max-width: 280px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.balance-box h2 {
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.balance-box p {
+    font-size: 1.5em;
+    color: #007bff;
+    font-weight: bold;
+    margin: 0;
+}
+
+
+/* Responsive Welcome Section */
+@media (max-width: 768px) {
+    .welcome-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .welcome-box {
+        min-width: 50%;
+        max-width: 100%;
+        width: 100%;
+        padding: 15px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        box-sizing: border-box;
+
+    }
+
+    .profile-pic img {
+        height: 64px;
+        width: 64px;
+    }
+
+    .welcome-text h2 {
+        font-size: 1.2em;
+    }
+
+    .welcome-text p,
+    .role-description {
+        font-size: 0.95em;
+    }
+
+    .balance-box {
+        width: auto;
+        max-width: 100%;
+        padding: 15px;
+        margin-top: 10px;
+        text-align: center;
+        align-items: center;
+        box-sizing: border-box;
+
+        
+    }
+
+    .balance-box h2 {
+        font-size: 1.1em;
+    }
+
+    .balance-box p {
+        font-size: 1.4em;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .welcome-text h2 {
+        font-size: 1.1em;
+    }
+
+    .welcome-text p,
+    .role-description {
+        font-size: 0.85em;
+    }
+
+    .balance-box p {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 768px) {
+    .welcome-box,
+    .balance-box {
+        margin-right: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-box,
+    .balance-box {
+        margin-right: 50px;
+    }
+}
+
+
+
+
+
+.label-bottom {
+    font-size: 0.95em;
+}
+
+.welcome-section {
+    display: flex;
+    align-items: stretch; /* 👈 this forces equal height */
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+
+/* Optional: Ensure both boxes align vertically on mobile */
+@media (max-width: 768px) {
+    .welcome-section {
+        flex-direction: column;
+    }
+
+    .welcome-box, .balance-box {
+        width: 100%;
+    }
+}
+
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .logout {
+        align-self: flex-end;
+    }
+
+    .tab-button {
+        flex-direction: row;
+        min-width: unset;
+        width: 100%;
+    }
+
+    .button {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.tab-button.disabled {
+    pointer-events: none;
+    opacity: 0.45;
+}

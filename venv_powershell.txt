@@ -1,0 +1,16 @@
+/////running the virtual environment for python
+
+cd D:\CMS_flusk\corporate_mgmt_system
+.\venv\Scripts\Activate
+
+
+(venv) PS D:\CMS_flusk\corporate_mgmt_system>
+
+
+python run.py
+
+
+
+////run the ps1 file from PowerShell : 
+
+.\start.ps1

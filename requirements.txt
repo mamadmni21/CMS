@@ -3,4 +3,5 @@ flask-sqlalchemy
 pymysql
 cryptography
 python-dotenv
+pandas
 numpy
